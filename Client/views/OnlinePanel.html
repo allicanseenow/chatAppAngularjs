@@ -3,8 +3,9 @@
         <div class="col-md-4">
             <h3>Online Users</h3>
             <ul>
-                <li ng-repeat="account in onlineNameList track by account.username">
-                    <a href="#!/chat/{{ account.username }}">
+                <li ng-repeat="account in onlineNameList track by account.username" ng-switch="sessionId!==account.sessionId">
+                    <div ng-switch-when="false">{{ account.username }} (You)</div>
+                    <a href="#!/chat/{{ account.username }}" ng-switch-when="true">
                         {{ account.username }}
                     </a>
                 </li>
@@ -18,7 +19,9 @@
                     <button type="button" ng-click="saveUsername(myUsername)">
                         Save
                     </button>
-                    <div ng-hide="!savingError">{{ savingError }}</div>
+                    <div ng-show="displayNote.savingError">{{ displayNote.savingError }}</div>
+                    <div ng-show="displayNote.successMessage">{{ displayNote.successMessage }}</div>
+                    <div ng-show="true">{{ 'Hello ' }}</div>
                 </div>
             </form>
         </div>

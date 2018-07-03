@@ -29,26 +29,38 @@ io.on('connection', (socket) => {
       };
 
       // Find from the list of online usernames
-      // If this username is not found, return -1. Otherwise, return the index of this username.
-      const thisUsernameIndex =  _.findIndex(connections, (connection) => {
+      // If this username with this sessionId is not found, return -1. Otherwise, return the index of the username this sessionId has.
+      const thisSessionIdIndex =  _.findIndex(connections, (connection) => {
         return connection.sessionId === tempData.sessionId;
       });
 
-      // If this username has already existed, check if this username is created by this session_id
-      if (thisUsernameIndex !== -1) {
-        if (connections[thisUsernameIndex].sessionId === tempData.sessionId) {
-          connections[thisUsernameIndex] = tempData;
-          userData = tempData;
-          callback({ error: null });
-        }
-        else {
-          callback({ error: 'Username taken'});
-        }
+      // Check if the username has been taken. If it has, return it index. Otherwise, return -1
+      const newUsernameIndex = _.findIndex(connections, (connection) => {
+        return connection.username === tempData.username;
+      });
+
+      // Check if the new username is being used (by current sessionId or someone else). If it is, current sessionId cannot switch to this username
+      // If it is being used
+      if (newUsernameIndex !== -1) {
+        callback({ error: 'Username has been taken! '});
       }
-      // If this username hasn't been taken
+      // If it is not being used
       else {
-        callback({ error: null });
-        connections.push(tempData);
+        // Check if this sessionId has already created a username or not and save the username in the array "connections".
+        // If it has, modify the object in the array to have a new username
+
+        let successMessage = null;
+        // If this sessionId has already created a username
+        if (thisSessionIdIndex !== -1) {
+          connections[thisSessionIdIndex] = tempData;
+          successMessage = 'New username has been created';
+        }
+        // If this sessionId hasn't created a username, add the username to the array "connections"
+        else {
+          connections.push(tempData);
+          successMessage = 'Username of this connection has been  changed';
+        }
+        callback({ error: null, successMessage });
         userData = tempData;
       }
     }
@@ -84,6 +96,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/fetch-online-list', (req, res) => {
+  // const userSessionId = req.query.sessionId;
+  // Add attribute
+  // const filteredConnection = _.map(connections, (connection) => {
+  //   if (connection.sessionId === userSessionId) {
+  //     connection.isUser = true;
+  //   }
+  //   return connection;
+  // });
   io.emit('fetch current online list', JSON.stringify(connections));
   res.json(connections);
 });
