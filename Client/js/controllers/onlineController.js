@@ -22,6 +22,7 @@ onlineControllerModule.factory('onlineService', function($http) {
 
   onlineService.saveUsername = (myUsername) => {
     socket.emit('user enter name', { newName: myUsername }, (response) => {
+      console.log('response here is ', response)
       if (response.error) {
         onlineService.savingError = response.error;
       }

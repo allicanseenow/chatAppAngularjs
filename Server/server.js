@@ -17,10 +17,13 @@ const users = [];
 const connections = [];
 
 io.on('connection', (socket) => {
-  let tempData;
+  /**
+   * Store this connection's username and socketId
+   */
+  let userData;
   socket.on('user enter name', (data, callback) => {
     if (data) {
-      tempData = {
+      const tempData = {
         username: data.newName,
         sessionId: socket.id,
       };
@@ -35,6 +38,7 @@ io.on('connection', (socket) => {
       if (thisUsernameIndex !== -1) {
         if (connections[thisUsernameIndex].sessionId === tempData.sessionId) {
           connections[thisUsernameIndex] = tempData;
+          userData = tempData;
           callback({ error: null });
         }
         else {
@@ -45,6 +49,7 @@ io.on('connection', (socket) => {
       else {
         callback({ error: null });
         connections.push(tempData);
+        userData = tempData;
       }
     }
     console.log('Connected: %s user online', connections.length);
@@ -62,7 +67,7 @@ io.on('connection', (socket) => {
 
   // If a person disconnects, remove this from online list
   socket.on('disconnect', function() {
-    const index = connections.indexOf(tempData);
+    const index = connections.indexOf(userData);
     if (index !== -1) connections.splice(index, 1);
     console.log('Disconnected: %s user online', connections.length);
   });
@@ -79,6 +84,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/fetch-online-list', (req, res) => {
+  io.emit('fetch current online list', JSON.stringify(connections));
   res.json(connections);
 });
 
