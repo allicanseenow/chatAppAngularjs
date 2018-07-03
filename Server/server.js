@@ -53,12 +53,12 @@ io.on('connection', (socket) => {
         // If this sessionId has already created a username
         if (thisSessionIdIndex !== -1) {
           connections[thisSessionIdIndex] = tempData;
-          successMessage = 'New username has been created';
+          successMessage = 'Username of this connection has been changed';
         }
         // If this sessionId hasn't created a username, add the username to the array "connections"
         else {
           connections.push(tempData);
-          successMessage = 'Username of this connection has been  changed';
+          successMessage = 'New username has been created';
         }
         callback({ error: null, successMessage });
         userData = tempData;

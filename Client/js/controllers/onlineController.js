@@ -63,6 +63,27 @@ onlineControllerModule.controller('onlineController', ['$scope', 'onlineService'
     // $scope.myUsername = myUsername;
     // $scope.saveSuccess = true;
   };
+
+  $scope.$watchGroup([ onlineService.successMessage, onlineService.savingError ], (newVal) => {
+    $scope.displayNote = {
+      successMessage: newVal[0],
+      savingError: newVal[1],
+    }
+  });
+
+  $scope.$watchGroup([
+    function() {
+      return onlineService.successMessage;
+    },
+    function() {
+      return onlineService.savingError;
+    }
+  ], function(newValues) {
+    $scope.displayNote = {
+      successMessage: newValues[0],
+      savingError: newValues[1],
+    }
+  })
 }]);
 
 
