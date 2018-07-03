@@ -21,9 +21,7 @@ onlineControllerModule.factory('onlineService', function($http) {
   };
 
   onlineService.saveUsername = (myUsername) => {
-    console.log('BEFORE  ___--- About to change name')
     socket.emit('user enter name', { newName: myUsername }, (response) => {
-      console.log('About to change name')
       if (response.error) {
         onlineService.savingError = response.error;
       }
@@ -31,7 +29,6 @@ onlineControllerModule.factory('onlineService', function($http) {
         onlineService.myUsername = myUsername;
         onlineService.saveSuccess = true;
         onlineService.savingError = null;
-        console.log('change name yay')
       }
     });
   };
@@ -55,7 +52,6 @@ onlineControllerModule.controller('onlineController', ['$scope', 'onlineService'
   updateOnlineList();
 
   $scope.saveUsername = (username) => {
-    console.log("Hey you");
     onlineService.saveUsername(username);
     updateOnlineList();
     // $scope.myUsername = myUsername;

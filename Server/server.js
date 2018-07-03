@@ -19,7 +19,6 @@ const connections = [];
 io.on('connection', (socket) => {
   let tempData;
   socket.on('user enter name', (data, callback) => {
-    console.log('here we go in the SERVER ', data)
     if (data) {
       tempData = {
         username: data.newName,
@@ -29,12 +28,9 @@ io.on('connection', (socket) => {
       // Find from the list of online usernames
       // If this username is not found, return -1. Otherwise, return the index of this username.
       const thisUsernameIndex =  _.findIndex(connections, (connection) => {
-        console.log('connection', connection)
-        console.log('tempData', tempData)
         return connection.sessionId === tempData.sessionId;
       });
 
-      console.log('thisUsernameIndexis ', thisUsernameIndex)
       // If this username has already existed, check if this username is created by this session_id
       if (thisUsernameIndex !== -1) {
         if (connections[thisUsernameIndex].sessionId === tempData.sessionId) {
@@ -51,8 +47,6 @@ io.on('connection', (socket) => {
         connections.push(tempData);
       }
     }
-    console.log("tempDatai AFTERALL is '", tempData)
-    console.log("connections AFTERALL is '", connections)
     console.log('Connected: %s user online', connections.length);
   });
 
@@ -76,7 +70,7 @@ io.on('connection', (socket) => {
 
 app.use((req, res, next) => {
   req.db = db;
-  req.io = io;
+  // req.io = io;
   next();
 });
 
