@@ -76,11 +76,8 @@ io.on('connection', (socket) => {
 
 app.use((req, res, next) => {
   req.db = db;
+  req.io = io;
   next();
-});
-
-app.use((req, res, next) => {
-
 });
 
 app.get('/', (req, res) => {
