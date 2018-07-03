@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Online Users</h3>
+            <ul>
+                <li ng-repeat="account in onlineNameList track by account.username">
+                    <a href="#!/chat/{{ account.username }}">
+                        {{ account.username }}
+                    </a>
+                </li>
+            </ul>
+            <label for="enterUsernameForm">Enter username Form</label>
+            <form id="enterUsernameForm">
+                <div class="form-group">
+                    <label for="username">Enter message</label>
+                    <input type="text" name="username" id="username" ng-model="myUsername"/>
+                    <br />
+                    <button type="button" ng-click="saveUsername(myUsername)">
+                        Save
+                    </button>
+                    <div ng-hide="!savingError">{{ savingError }}</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
