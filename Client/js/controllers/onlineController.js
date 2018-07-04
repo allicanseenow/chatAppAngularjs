@@ -55,7 +55,7 @@ onlineControllerModule.controller('onlineController', ['$scope', 'onlineService'
     });
   };
 
-  updateOnlineList();
+  // updateOnlineList();
 
   $scope.saveUsername = (username) => {
     onlineService.saveUsername(username);
@@ -83,7 +83,14 @@ onlineControllerModule.controller('onlineController', ['$scope', 'onlineService'
       successMessage: newValues[0],
       savingError: newValues[1],
     }
-  })
+  });
+
+  socket.on('fetch current online list', function(data) {
+    console.log("here we go", data)
+    $scope.onlineNameList = data;
+    // Apply the change. Otherwise, the new change won't be updated immediately
+    $scope.$apply();
+  });
 }]);
 
 

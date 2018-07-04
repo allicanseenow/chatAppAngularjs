@@ -21,6 +21,14 @@ io.on('connection', (socket) => {
    * Store this connection's username and socketId
    */
   let userData;
+
+  /**
+   * If any change occurs to the current online username list, broadcast the change to all clients
+   */
+  const broadcastOnlineList = () => {
+    io.emit('fetch current online list', connections);
+  };
+
   socket.on('user enter name', (data, callback) => {
     if (data) {
       const tempData = {
@@ -61,6 +69,7 @@ io.on('connection', (socket) => {
           successMessage = 'New username has been created';
         }
         callback({ error: null, successMessage });
+        broadcastOnlineList();
         userData = tempData;
       }
     }
@@ -96,15 +105,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/fetch-online-list', (req, res) => {
-  // const userSessionId = req.query.sessionId;
-  // Add attribute
-  // const filteredConnection = _.map(connections, (connection) => {
-  //   if (connection.sessionId === userSessionId) {
-  //     connection.isUser = true;
-  //   }
-  //   return connection;
-  // });
-  io.emit('fetch current online list', JSON.stringify(connections));
   res.json(connections);
 });
 
