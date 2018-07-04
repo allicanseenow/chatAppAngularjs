@@ -39,7 +39,7 @@ onlineControllerModule.factory('onlineService', function($http) {
   return onlineService;
 });
 
-onlineControllerModule.controller('onlineController', ['$scope', 'onlineService', function ($scope, onlineService) {
+onlineControllerModule.controller('onlineController', ['$scope', '$rootScope', 'onlineService', function ($scope, $rootScope, onlineService) {
   $scope.onlineNameList = [];
   $scope.myUsername = onlineService.myUsername;
   $scope.displayNote = {
@@ -85,6 +85,9 @@ onlineControllerModule.controller('onlineController', ['$scope', 'onlineService'
     }
   });
 
+  /**
+   * Open socket connection to keep the list of online username updated
+   */
   socket.on('fetch current online list', function(data) {
     console.log("here we go", data)
     $scope.onlineNameList = data;

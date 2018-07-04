@@ -29,6 +29,8 @@ io.on('connection', (socket) => {
     io.emit('fetch current online list', connections);
   };
 
+  // Initial online list fetching
+  socket.emit('fetch current online list', connections);
   socket.on('user enter name', (data, callback) => {
     if (data) {
       const tempData = {
@@ -90,6 +92,8 @@ io.on('connection', (socket) => {
   socket.on('disconnect', function() {
     const index = connections.indexOf(userData);
     if (index !== -1) connections.splice(index, 1);
+    // If someone is longer online, broadcast this to other people
+    broadcastOnlineList();
     console.log('Disconnected: %s user online', connections.length);
   });
 });
