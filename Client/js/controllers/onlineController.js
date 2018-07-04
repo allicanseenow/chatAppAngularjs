@@ -4,7 +4,7 @@ const onlineControllerModule = angular.module('onlineControllerModule', []);
 onlineControllerModule.factory('onlineService', function($http) {
   const onlineService = {};
   onlineService.myUsername = '';
-  onlineService.saveSuccess = false;
+  onlineService.successMessage = '';
   onlineService.savingError = null;
 
 
@@ -66,8 +66,8 @@ onlineControllerModule.controller('onlineController', ['$scope', 'onlineService'
 
   $scope.$watchGroup([ onlineService.successMessage, onlineService.savingError ], (newVal) => {
     $scope.displayNote = {
-      successMessage: newVal[0],
-      savingError: newVal[1],
+      successMessage: newVal && newVal[0],
+      savingError: newVal && newVal[1],
     }
   });
 
