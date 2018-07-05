@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const db = require('./mongo');
+// const db = require('./mongo');
 const morgan = require('morgan');
 const app = require('express')();
 

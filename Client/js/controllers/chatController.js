@@ -4,7 +4,6 @@ const chatControllerModule = angular.module('chatControllerModule', []);
 chatControllerModule.factory('chatService', function($http) {
   const chatService = {
     newMessage: '',
-    getNewMessage: () => { return chatService.newMessage }
   };
 
   /**
@@ -56,12 +55,9 @@ chatControllerModule.factory('chatService', function($http) {
   chatService.sendMessage = (message, receiverId, senderName) => {
     if (message) {
       socket.emit('SEND MESSAGE', { message, receiverId, sender: senderName }, (messageSent = false) => {
-        console.log('message is sent', messageSent)
-        console.log('chatService.newMessage  is outside ', chatService.newMessage )
-        console.log('message is outside ', message)
         if (messageSent) {
           console.log('chatService.newMessage  is ', chatService.newMessage )
-          console.log('message is ', message)
+          console.log('message is ', message);
           chatService.newMessage = message;
         }
       });
