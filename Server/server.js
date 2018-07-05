@@ -78,14 +78,20 @@ io.on('connection', (socket) => {
     console.log('Connected: %s user online', connections.length);
   });
 
-  socket.on('chat message', function(msg) {
-    io.emit('chat message', msg);
-  });
+  // socket.on('chat message', function(msg) {
+  //   io.emit('chat message', msg);
+  // });
+  //
+  // socket.on('send message', (data) => {
+  //   io.emit('new message', {
+  //     msg: data,
+  //   });
+  // });
 
-  socket.on('send message', (data) => {
-    io.emit('new message', {
-      msg: data,
-    });
+  socket.on('SEND MESSAGE', (data, callback) => {
+    console.log('data in server is ', data);
+    callback(true);
+    socket.emit()
   });
 
   // If a person disconnects, remove this from online list

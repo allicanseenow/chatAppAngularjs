@@ -46,7 +46,14 @@ onlineControllerModule.controller('onlineController', ['$scope', '$rootScope', '
     successMessage: onlineService.successMessage,
     savingError: onlineService.savingError,
   };
-  $scope.sessionId = socket.id;
+  $scope.sessionId =  socket.id;
+
+  const updateUsernameSaving = () => {
+    $rootScope.myUsername = $scope.myUsername;
+    $rootScope.sessionId = $scope.sessionId;
+  };
+
+  updateUsernameSaving();
 
   const updateOnlineList = () => {
     onlineService.getOnlineUsernames().then((data) => {
@@ -60,6 +67,7 @@ onlineControllerModule.controller('onlineController', ['$scope', '$rootScope', '
   $scope.saveUsername = (username) => {
     onlineService.saveUsername(username);
     updateOnlineList();
+    updateUsernameSaving();
     // $scope.myUsername = myUsername;
     // $scope.saveSuccess = true;
   };

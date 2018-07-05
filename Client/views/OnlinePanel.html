@@ -5,7 +5,7 @@
             <ul>
                 <li ng-repeat="account in onlineNameList track by account.username" ng-switch="sessionId!==account.sessionId">
                     <div ng-switch-when="false">{{ account.username }} (You)</div>
-                    <a href="#!/chat/{{ account.username }}" ng-switch-when="true">
+                    <a href="#!/chat/{{ account.username }}?receiverId={{ account.sessionId }}" ng-switch-when="true">
                         {{ account.username }}
                     </a>
                 </li>
