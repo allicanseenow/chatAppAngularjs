@@ -1,6 +1,7 @@
 const _ = require('lodash');
 // const db = require('./mongo');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const app = require('express')();
 
 app.use(function(req, res, next) {
@@ -8,12 +9,14 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
 app.use(morgan('combined'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-const users = [];
 const connections = [];
 
 io.on('connection', (socket) => {
@@ -105,8 +108,8 @@ io.on('connection', (socket) => {
 });
 
 app.use((req, res, next) => {
-  req.db = db;
-  // req.io = io;
+  // req.db = db;
+  req.io = io;
   next();
 });
 
@@ -116,6 +119,22 @@ app.get('/', (req, res) => {
 
 app.get('/fetch-online-list', (req, res) => {
   res.json(connections);
+});
+
+/**
+ * API used when a client sends a private message to another person. The API broadcasts
+ * the message to both clients
+ */
+app.post('/send-message', (req, res) => {
+  const { io, body } = req;
+  const { message, receiverId, senderName, senderId } = body;
+  _.forEach([ senderId, receiverId ], (room) => {
+    console.log('room is ', room)
+    io.to(room).emit('MESSAGE RECEIVED', {
+      senderId, receiverId, message, senderName,
+    });
+  });
+  res.status(200).send({});
 });
 
 
