@@ -1,10 +1,14 @@
 
 const chatControllerModule = angular.module('chatControllerModule', []);
 
-chatControllerModule.factory('chatService', function($http) {
+chatControllerModule.factory('chatService', function($http, $rootScope) {
   console.log('start service')
+  console.log('$rootScope is ', $rootScope)
   const chatService = {
-    newMessage: '',
+    newMessage: {
+      currentText: '',
+      allMessages: [],
+    }
   };
 
   /**
@@ -23,11 +27,6 @@ chatControllerModule.factory('chatService', function($http) {
   };
 
   chatService.setUpSocketTransmission = (socket) => {
-    let sendMessageToChatFromUser;
-    let sendTypingFromUser;
-
-    console.log('hello service here ')
-
     /**
      * When a user is notified that his/her message has been successfully transferred
      */
@@ -41,6 +40,36 @@ chatControllerModule.factory('chatService', function($http) {
      */
     socket.on('MESSAGE RECEIVED', (data) => {
       console.log('data received --- ', data);
+      const { message, messageId } = data;
+      /**
+       * Sometimes, there will be 2 identical events sent to the same socket
+       *
+       * Find if the message array has already contained the newest message.
+       * If the array has already contained the message, we won't add the message to the array
+       * to display to users
+       *
+       * If the array length > 10, only check the last 10 messages of the array to see
+       * if the array contains the message (for performance's sake). Otherwise, scan all the array
+       *
+       * Invoking the function is needed to prevent duplication as sometimes, socket.on will
+       * receive 2 events although there is only 1 event to be emitted from the server
+       * @returns {boolean} ``true`` if there is a duplication, ``false`` otherwise
+       */
+      const findDuplicateMessageById = () => {
+        return _.findIndex(chatService.newMessage.allMessages, (eachMessage) => {
+          return eachMessage.messageId === messageId;
+        }, (function() {
+          const messageCount = chatService.newMessage.allMessages.length;
+          return messageCount > 10 ? messageCount - 10 : 0;
+        })()) !== -1;
+      };
+      // Sometimes, socket.on receives a duplicate of an event emitted from the server
+      // This makes sure we won't add a message twice
+      if (!findDuplicateMessageById()) {
+        chatService.newMessage.allMessages.push(data);
+        chatService.newMessage.currentText = '';
+        $rootScope.$broadcast('SEND MESSAGE FROM CHAT SERVICE', chatService.newMessage);
+      }
     });
 
     /**
@@ -59,10 +88,7 @@ chatControllerModule.factory('chatService', function($http) {
    */
   chatService.sendMessage = (message = '', receiverId, senderName, senderId) => {
     $http.post(`http://localhost:3000/send-message`, {
-      message,
-      receiverId,
-      senderName,
-      senderId,
+      message, receiverId, senderName, senderId,
     }).then((res) => {
 
     }, (res) => {
@@ -70,8 +96,16 @@ chatControllerModule.factory('chatService', function($http) {
     });
   };
 
-  chatService.resetNewMessage = () => {
-    chatService.newMessage = '';
+  /**
+   * Signify the other person that I am typing
+   * @param senderId Session ID of the sender
+   * @param receiverId Session ID of the receiver
+   * @param senderName Username of the sender's session ID
+   */
+  chatService.isTyping = (senderId, receiverId, senderName) => {
+    $http.post(`http://localhost:3000/signify-is-typing`, {
+      senderId, receiverId, senderName
+    });
   };
 
   return chatService;

@@ -3,9 +3,11 @@ chatControllerModule
   .controller('chatController', ['$scope', '$rootScope', '$location', '$routeParams', 'chatService', function ($scope, $rootScope, $location, $routeParams, chatService) {
     $scope.myUsername = '';
     $scope.sessionId = '';
-    $scope.currentText = '';
-    $scope.allMessages = [];
-    console.log('$location is ', $routeParams)
+    $scope.message = {
+      currentText: chatService.newMessage.currentText,
+      allMessages: chatService.newMessage.allMessages,
+    };
+    console.log('$scope.message is ',  $scope.message)
     const { username, receiverId } = $routeParams;
 
     /**
@@ -35,17 +37,30 @@ chatControllerModule
       chatService.sendMessage(message, receiverId, $scope.myUsername, $scope.sessionId);
     };
 
-    $rootScope.$watch(function() {
-      return chatService.newMessage;
-    }, (newMessage, oldMessage) => {
-      console.log('newMessage in controller ', newMessage);
-      if (newMessage && newMessage !== oldMessage) {
-        $scope.allMessages.push(newMessage);
-        console.log('$scope.allMessages is ', $scope.allMessages);
-        chatService.resetNewMessage();
-        // $scope.$apply();
-      }
+
+    $scope.isTyping = () => {
+      chatService.isTyping();
+    };
+
+    // $rootScope.$watchGroup([function() {
+    //   return chatService.newMessage.allMessages;
+    // }], (newMessage, oldMessage) => {
+    //   $scope.message.allMessages = newMessage[0];
+    // });
+
+    /**
+     * Receive the change broadcast from the service
+     * Update the view with the new message that the controller has received
+     */
+    $scope.$on('SEND MESSAGE FROM CHAT SERVICE', (event, data) => {
+      $scope.$apply(function() {
+        $scope.message.currentText = data.currentText;
+        $scope.message.allMessages = data.allMessages
+      });
     });
+
+
+    $scope.$watch('$scope.message.currentText')
 
 
     chatService.setUpSocketTransmission(socket);

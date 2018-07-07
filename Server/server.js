@@ -2,6 +2,7 @@ const _ = require('lodash');
 // const db = require('./mongo');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const uuid = require('uuid/v4');
 const app = require('express')();
 
 app.use(function(req, res, next) {
@@ -128,15 +129,24 @@ app.get('/fetch-online-list', (req, res) => {
 app.post('/send-message', (req, res) => {
   const { io, body } = req;
   const { message, receiverId, senderName, senderId } = body;
-  _.forEach([ senderId, receiverId ], (room) => {
-    console.log('room is ', room)
+  _.forEach([senderId, receiverId], (room) => {
     io.to(room).emit('MESSAGE RECEIVED', {
-      senderId, receiverId, message, senderName,
+      message: {
+        senderId, receiverId, message, senderName,
+      },
+      messageId: uuid(),
     });
   });
   res.status(200).send({});
 });
 
+/**
+ * Broadcast to the other person of the conversation to notify that this person is typing
+ */
+app.post('/signify-is-typing', (req, res) => {
+  const { io, body } = req;
+  const { receiverId, senderName, senderId } = body;
+});
 
 server.listen(3000, () => {
   console.log('listening on *:3000');

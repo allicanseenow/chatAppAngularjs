@@ -1,16 +1,23 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
+            <br>
             <div class="chat" id="chat">
-
+                <ul>
+                    <li ng-repeat="eachMessage in message.allMessages track by eachMessage.messageId"><b>{{ eachMessage.message.senderName }}</b>: {{ eachMessage.message.message }}</li>
+                </ul>
             </div>
+            <br><br>
             <label for="messageForm" ng-show="false">Message Form</label>
             <form id="messageForm">
                 <div class="form-group">
                     <label for="message" ng-show="false">Enter message</label>
-                    <input type="text" id="message" name="message" ng-model="currentText">
+                    <input type="text" id="message" name="message" ng-model="message.currentText">
                     <br />
-                    <button type="button" class="btn btn-primary" ng-click="sendMessage(currentText)">Send</button>
+                    <div>
+                        {{ }}
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="sendMessage(message.currentText)">Send</button>
                 </div>
             </form>
             <div>Your username: <b>{{ myUsername }}</b></div>
