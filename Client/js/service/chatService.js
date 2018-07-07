@@ -10,6 +10,14 @@ chatControllerModule.factory('chatService', function($http, $rootScope) {
   };
 
   /**
+   * Call an API to get the current username that is created by the ``receiverId``
+   * @param receiverId {string} Session ID of the receiver
+   */
+  chatService.getReceiverName = (receiverId) => {
+    return $http.get(`http://localhost:3000/get-receiver-name?receiverId=${receiverId}`);
+  };
+
+  /**
    * Get the conversation between "from" and "to"
    * @param from this username
    * @param to the other username of the conversation

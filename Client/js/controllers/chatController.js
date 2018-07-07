@@ -3,6 +3,7 @@ chatControllerModule
   .controller('chatController', ['$scope', '$rootScope', '$location', '$routeParams', 'chatService', function ($scope, $rootScope, $location, $routeParams, chatService) {
     $scope.myUsername = '';
     $scope.sessionId = '';
+    $scope.otherPersonName = '';
     $scope.message = {
       currentText: chatService.newMessage.currentText,
       allMessages: chatService.newMessage.allMessages,
@@ -30,6 +31,21 @@ chatControllerModule
     $scope.sessionId = $rootScope.sessionId;
 
     /**
+     * Get the receiver name
+     */
+    const getReceiverNameViaID = () => {
+      chatService.getReceiverName(receiverId)
+        .then((res) => {
+          const { username } = res.data;
+          $scope.otherPersonName = username;
+        }, (res) => {
+          throw res.data;
+        });
+    };
+
+    getReceiverNameViaID();
+
+    /**
      * Send a message to a receiverId
      * @param message
      */
@@ -37,7 +53,9 @@ chatControllerModule
       chatService.sendMessage(message, receiverId, $scope.myUsername, $scope.sessionId);
     };
 
-
+    /**
+     * Call an API to signify if this person is typing
+     */
     $scope.isTyping = () => {
       chatService.isTyping();
     };

@@ -4,7 +4,6 @@
     <list default="true" id="022cd80b-2b2d-49bb-b410-c35a78cf4fab" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/js/controllers/chatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/js/controllers/chatController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/js/controllers/onlineController.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/js/controllers/onlineController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/js/service/chatService.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/js/service/chatService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/views/Chat.html" beforeDir="false" afterPath="$PROJECT_DIR$/Client/views/Chat.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/server.js" afterDir="false" />
@@ -32,8 +31,8 @@
           <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Server/server.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2440">
-                  <caret line="133" column="16" selection-start-line="133" selection-start-column="8" selection-end-line="133" selection-end-column="16" />
+                <state relative-caret-position="233">
+                  <caret line="100" column="38" lean-forward="true" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
                 </state>
               </provider>
             </entry>
@@ -50,17 +49,17 @@
           <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/js/app.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="23">
-                  <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+                <state relative-caret-position="92">
+                  <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Chat.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Chat.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Client/views/Chat.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="417">
-                  <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+                <state relative-caret-position="210">
+                  <caret line="22" column="19" lean-forward="true" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
                 </state>
               </provider>
             </entry>
@@ -68,17 +67,17 @@
           <file leaf-file-name="chatController.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/js/controllers/chatController.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="115">
-                  <caret line="5" column="22" lean-forward="true" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+                <state relative-caret-position="299">
+                  <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="onlineController.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="onlineController.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/js/controllers/onlineController.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="104">
-                  <caret line="49" column="38" lean-forward="true" selection-start-line="49" selection-start-column="38" selection-end-line="49" selection-end-column="38" />
+                <state relative-caret-position="207">
+                  <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
                 </state>
               </provider>
             </entry>
@@ -90,8 +89,8 @@
           <file leaf-file-name="chatService.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Client/js/service/chatService.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="65">
-                  <caret line="3" column="73" selection-start-line="3" selection-start-column="73" selection-end-line="3" selection-end-column="73" />
+                <state relative-caret-position="162">
+                  <caret line="16" column="44" lean-forward="true" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
                 </state>
               </provider>
             </entry>
@@ -130,11 +129,11 @@
       <find>text</find>
       <find>repeat</find>
       <find>sendername</find>
-      <find>$rootScope</find>
-      <find>receiverId</find>
       <find>console.lo</find>
       <find>console</find>
       <find>console.</find>
+      <find>$rootScope</find>
+      <find>receiverId</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -151,11 +150,11 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/Client/views/OnlinePanel.html" />
         <option value="$PROJECT_DIR$/Client/index.html" />
-        <option value="$PROJECT_DIR$/Server/server.js" />
+        <option value="$PROJECT_DIR$/Client/js/controllers/onlineController.js" />
         <option value="$PROJECT_DIR$/Client/js/service/chatService.js" />
         <option value="$PROJECT_DIR$/Client/js/controllers/chatController.js" />
         <option value="$PROJECT_DIR$/Client/views/Chat.html" />
-        <option value="$PROJECT_DIR$/Client/js/controllers/onlineController.js" />
+        <option value="$PROJECT_DIR$/Server/server.js" />
       </list>
     </option>
   </component>
@@ -293,26 +292,35 @@
       <workItem from="1530459867379" duration="40838000" />
       <workItem from="1530601054703" duration="12943000" />
       <workItem from="1530771395373" duration="20477000" />
-      <workItem from="1530874465434" duration="38786000" />
+      <workItem from="1530874465434" duration="41912000" />
     </task>
+    <task id="LOCAL-00001" summary="- Fix bugs.&#10;- Add: is person typing functionality">
+      <created>1530971043788</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1530971043790</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177786000" />
+    <option name="totallyTimeSpent" value="180912000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="916" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15444288" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15444288" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32904884" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.32896462" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32896462" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.28833553" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.28833553" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -374,6 +382,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="- Fix bugs.&#10;- Add: is person typing functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Fix bugs.&#10;- Add: is person typing functionality" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -679,45 +691,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/server.js">
+    <entry file="file://$PROJECT_DIR$/Client/js/controllers/onlineController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2440">
-          <caret line="133" column="16" selection-start-line="133" selection-start-column="8" selection-end-line="133" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/js/service/chatService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="3" column="73" selection-start-line="3" selection-start-column="73" selection-end-line="3" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/views/Chat.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/js/controllers/chatController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="22" lean-forward="true" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+        <state relative-caret-position="207">
+          <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+        <state relative-caret-position="92">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/js/controllers/onlineController.js">
+    <entry file="file://$PROJECT_DIR$/Client/js/service/chatService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="49" column="38" lean-forward="true" selection-start-line="49" selection-start-column="38" selection-end-line="49" selection-end-column="38" />
+        <state relative-caret-position="162">
+          <caret line="16" column="44" lean-forward="true" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="100" column="38" lean-forward="true" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/js/controllers/chatController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/views/Chat.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="22" column="19" lean-forward="true" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
         </state>
       </provider>
     </entry>

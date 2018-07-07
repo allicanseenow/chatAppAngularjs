@@ -117,6 +117,23 @@ app.get('/', (req, res) => {
   // res.sendFile(__dirname + '/index.html');
 });
 
+/**
+ * Find the username of one using the session ID
+ */
+app.get('/get-receiver-name', (req, res) => {
+  const { query } = req;
+  const { receiverId } = query;
+  const connection = _.find(connections, (connection) => {
+    return connection.sessionId === receiverId;
+  });
+  if (!connection) {
+    return res.status(400).send({ error: 'Bad request'});
+  }
+  else {
+    return res.status(200).send({ username: connection.username });
+  }
+});
+
 app.get('/fetch-online-list', (req, res) => {
   res.json(connections);
 });
@@ -128,6 +145,9 @@ app.get('/fetch-online-list', (req, res) => {
 app.post('/send-message', (req, res) => {
   const { io, body } = req;
   const { message, receiverId, senderName, senderId } = body;
+  if (!receiverId || !senderId) {
+    return res.status(400).send({ Error: 'Bad request' });
+  }
   _.forEach([senderId, receiverId], (room) => {
     io.to(room).emit('MESSAGE RECEIVED', {
       message: {
@@ -136,7 +156,7 @@ app.post('/send-message', (req, res) => {
       messageId: uuid(),
     });
   });
-  res.status(200).send({});
+  return res.status(200).send({});
 });
 
 /**
@@ -146,7 +166,7 @@ app.post('/signify-is-typing', (req, res) => {
   const { io, body } = req;
   const { isTyping, receiverId, senderName, senderId } = body;
   io.to(receiverId).emit('IS TYPING', { isTyping });
-  res.status(200).send({});
+  return res.status(200).send({});
 });
 
 server.listen(3000, () => {

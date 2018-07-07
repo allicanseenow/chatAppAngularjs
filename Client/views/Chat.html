@@ -17,11 +17,12 @@
                     <div>
                         {{ message.otherPersonIsTyping ? 'Other person is typing' : '' }}
                     </div>
+                    <br>
                     <button type="button" class="btn btn-primary" ng-click="sendMessage(message.currentText)">Send</button>
                 </div>
             </form>
             <div>Your username: <b>{{ myUsername }}</b></div>
-            <div>You're talking to: <b>{{ myUsername }}</b></div>
+            <div>You're talking to: <b>{{ otherPersonName }}</b></div>
         </div>
     </div>
 </div>
