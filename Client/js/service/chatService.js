@@ -2,8 +2,6 @@
 const chatControllerModule = angular.module('chatControllerModule', []);
 
 chatControllerModule.factory('chatService', function($http, $rootScope) {
-  console.log('start service')
-  console.log('$rootScope is ', $rootScope)
   const chatService = {
     newMessage: {
       currentText: '',
@@ -39,8 +37,8 @@ chatControllerModule.factory('chatService', function($http, $rootScope) {
      * { senderId, receiverId, message, senderName }
      */
     socket.on('MESSAGE RECEIVED', (data) => {
-      console.log('data received --- ', data);
       const { message, messageId } = data;
+      const { senderId } = message;
       /**
        * Sometimes, there will be 2 identical events sent to the same socket
        *
@@ -67,7 +65,14 @@ chatControllerModule.factory('chatService', function($http, $rootScope) {
       // This makes sure we won't add a message twice
       if (!findDuplicateMessageById()) {
         chatService.newMessage.allMessages.push(data);
-        chatService.newMessage.currentText = '';
+        // If this message is sent by this user, clear the input field
+        if (senderId === socket.id) {
+          chatService.newMessage.keepCurrentText = false;
+          chatService.newMessage.currentText = '';
+        }
+        else {
+          chatService.newMessage.keepCurrentText = true;
+        }
         $rootScope.$broadcast('SEND MESSAGE FROM CHAT SERVICE', chatService.newMessage);
       }
     });
@@ -75,8 +80,8 @@ chatControllerModule.factory('chatService', function($http, $rootScope) {
     /**
      * When user is notified that the other person is typing
      */
-    socket.on('IS TYPING', () => {
-
+    socket.on('IS TYPING', ({ isTyping }) => {
+      $rootScope.$broadcast('OTHER PERSON IS TYPING', { isTyping });
     });
   };
 
@@ -98,13 +103,14 @@ chatControllerModule.factory('chatService', function($http, $rootScope) {
 
   /**
    * Signify the other person that I am typing
+   * @param isTyping {boolean} Is this person typing
    * @param senderId Session ID of the sender
    * @param receiverId Session ID of the receiver
    * @param senderName Username of the sender's session ID
    */
-  chatService.isTyping = (senderId, receiverId, senderName) => {
+  chatService.isTyping = (isTyping, senderId, receiverId, senderName) => {
     $http.post(`http://localhost:3000/signify-is-typing`, {
-      senderId, receiverId, senderName
+      isTyping, senderId, receiverId, senderName
     });
   };
 

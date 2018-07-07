@@ -93,7 +93,6 @@ io.on('connection', (socket) => {
   // });
 
   socket.on('SEND MESSAGE', (data, callback) => {
-    console.log('data in server is ', data);
     callback(true);
     socket.emit()
   });
@@ -145,7 +144,9 @@ app.post('/send-message', (req, res) => {
  */
 app.post('/signify-is-typing', (req, res) => {
   const { io, body } = req;
-  const { receiverId, senderName, senderId } = body;
+  const { isTyping, receiverId, senderName, senderId } = body;
+  io.to(receiverId).emit('IS TYPING', { isTyping });
+  res.status(200).send({});
 });
 
 server.listen(3000, () => {

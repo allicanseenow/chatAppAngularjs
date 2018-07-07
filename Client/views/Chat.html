@@ -13,14 +13,15 @@
                 <div class="form-group">
                     <label for="message" ng-show="false">Enter message</label>
                     <input type="text" id="message" name="message" ng-model="message.currentText">
-                    <br />
+                    <br><br>
                     <div>
-                        {{ }}
+                        {{ message.otherPersonIsTyping ? 'Other person is typing' : '' }}
                     </div>
                     <button type="button" class="btn btn-primary" ng-click="sendMessage(message.currentText)">Send</button>
                 </div>
             </form>
             <div>Your username: <b>{{ myUsername }}</b></div>
+            <div>You're talking to: <b>{{ myUsername }}</b></div>
         </div>
     </div>
 </div>

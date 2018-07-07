@@ -6,8 +6,8 @@ chatControllerModule
     $scope.message = {
       currentText: chatService.newMessage.currentText,
       allMessages: chatService.newMessage.allMessages,
+      otherPersonIsTyping: false,
     };
-    console.log('$scope.message is ',  $scope.message)
     const { username, receiverId } = $routeParams;
 
     /**
@@ -54,14 +54,37 @@ chatControllerModule
      */
     $scope.$on('SEND MESSAGE FROM CHAT SERVICE', (event, data) => {
       $scope.$apply(function() {
-        $scope.message.currentText = data.currentText;
+        if (!data.keepCurrentText) $scope.message.currentText = data.currentText;
         $scope.message.allMessages = data.allMessages
       });
     });
 
+    /**
+     * Catch the event from chatService, to check if the other person is typing or not
+     */
+    $scope.$on('OTHER PERSON IS TYPING', (event, { isTyping }) => {
+      if ($scope.message.otherPersonIsTyping !== isTyping) {
+        $scope.$apply(function() {
+          $scope.message.otherPersonIsTyping = isTyping;
+        });
+      }
+    });
 
-    $scope.$watch('$scope.message.currentText')
 
+    /**
+     * Watch for when this person is typing or not and notify the server of the action
+     */
+    $scope.$watch('message.currentText', (newText, oldText) => {
+      /*
+          Only emit the event when:
+          - newText is different from oldText
+          - Either newText or oldText must be an empty string, but not both are
+       */
+      if ((newText !== oldText) && (!!oldText ^ !!newText)) {
+        const isTyping = !!newText;
+        chatService.isTyping(isTyping, $scope.sessionId, receiverId, $scope.myUsername);
+      }
+    });
 
     chatService.setUpSocketTransmission(socket);
 

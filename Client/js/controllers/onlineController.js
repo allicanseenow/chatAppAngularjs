@@ -23,7 +23,6 @@ onlineControllerModule.factory('onlineService', function($http) {
   onlineService.saveUsername = (myUsername) => {
     console.log('socket id is ', socket.id)
     socket.emit('user enter name', { newName: myUsername }, (response) => {
-      console.log('response here is ', response)
       if (response.error) {
         onlineService.savingError = response.error;
         onlineService.successMessage = '';
@@ -58,7 +57,6 @@ onlineControllerModule.controller('onlineController', ['$scope', '$rootScope', '
   const updateOnlineList = () => {
     onlineService.getOnlineUsernames().then((data) => {
       $scope.onlineNameList = data;
-      console.log('data i s', data)
     });
   };
 
@@ -97,7 +95,6 @@ onlineControllerModule.controller('onlineController', ['$scope', '$rootScope', '
    * Open socket connection to keep the list of online username updated
    */
   socket.on('fetch current online list', function(data) {
-    console.log("here we go", data)
     $scope.onlineNameList = data;
     // Apply the change. Otherwise, the new change won't be updated immediately
     $scope.$apply();
