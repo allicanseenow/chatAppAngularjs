@@ -66,16 +66,17 @@ onlineControllerModule.factory('onlineService', ['$http', '$location', '$rootSco
           // Display notification when someone else is messaging me
           if (senderId !== myId) {
             console.log('Creating a notification----');
-            const title = `New message from ${senderName}`;
+            const title = `${senderName} messaged: `;
             const notification = new Notification(title, {
               tag: 'MESSAGE SENT TAG',
               body: `"${ message && message.message || 'Empty message' }"`,
+              icon: generateGravatarImageURL(senderName),
             });
             notification.onclick = (event) => {
               event.preventDefault();
               notification.close();
               $rootScope.$apply(function() {
-                $location.url(`/chat/${senderName}?receiverId=${senderId}`);
+                $location.url(`/chat/${senderName}?receiverId=${senderId}s=200`);
               });
             };
           }

@@ -7,10 +7,12 @@ onlineControllerModule.controller('onlineController', ['$scope', '$rootScope', '
     savingError: onlineService.savingError,
   };
   $scope.sessionId =  socket.id;
+  $scope.gravatarImageURL = generateGravatarImageURL($scope.myUsername, 80);
 
   const updateUsernameSaving = () => {
     $rootScope.myUsername = $scope.myUsername;
     $rootScope.sessionId = $scope.sessionId;
+    $rootScope.gravatarImageURL = $scope.gravatarImageURL;
   };
 
   updateUsernameSaving();
@@ -44,6 +46,10 @@ onlineControllerModule.controller('onlineController', ['$scope', '$rootScope', '
     // $scope.saveSuccess = true;
   };
 
+
+  $scope.generateGravatarImageURL = (username, size) => {
+    return generateGravatarImageURL(username, size);
+  };
 
   /**
    * Watch for the change of any new success or error message

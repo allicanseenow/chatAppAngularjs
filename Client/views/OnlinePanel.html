@@ -4,16 +4,17 @@
             <h3>Online Users</h3>
             <ul>
                 <li ng-repeat="account in onlineNameList track by account.username" ng-switch="sessionId!==account.sessionId">
-                    <div ng-switch-when="false">{{ account.username }} (You)</div>
+                    <img src="{{ generateGravatarImageURL(account.username, 40) }}" alt="" ng-show="account.username">
+                    <span ng-switch-when="false">{{ account.username }} (You)</span>
                     <a href="#!/chat/{{ account.username }}?receiverId={{ account.sessionId }}" ng-switch-when="true">
-                        {{ account.username }}
+                        <span>{{ account.username }}</span>
                     </a>
                 </li>
             </ul>
             <label for="enterUsernameForm">Enter username Form</label>
             <form id="enterUsernameForm">
                 <div class="form-group">
-                    <label for="username">Enter message</label>
+                    <label for="username">Enter username</label>
                     <input type="text" name="username" id="username" ng-model="myUsername"/>
                     <br />
                     <button type="button" ng-click="saveUsername(myUsername)">
