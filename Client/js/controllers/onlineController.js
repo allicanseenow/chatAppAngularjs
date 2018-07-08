@@ -35,6 +35,11 @@ onlineControllerModule.factory('onlineService', function($http) {
     });
   };
 
+  onlineService.clearMessage = () => {
+    onlineService.successMessage = '';
+    onlineService.savingError = null;
+  };
+
   return onlineService;
 });
 
@@ -55,13 +60,20 @@ onlineControllerModule.controller('onlineController', ['$scope', '$rootScope', '
   updateUsernameSaving();
 
   const updateOnlineList = () => {
-    console.log('run this ')
     onlineService.getOnlineUsernames().then((data) => {
       $scope.onlineNameList = data;
     });
   };
 
-  // updateOnlineList();
+  /**
+   * Initial fetch of current online list after loading the page
+   */
+  updateOnlineList();
+
+  /**
+   * Clear message and warning after loading the page
+   */
+  onlineService.clearMessage();
 
   $scope.saveUsername = (username) => {
     onlineService.saveUsername(username);

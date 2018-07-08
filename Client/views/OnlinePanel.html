@@ -19,7 +19,7 @@
                     <button type="button" ng-click="saveUsername(myUsername)">
                         Save
                     </button>
-                    <div ng-show="displayNote.savingError">{{ displayNote && displayNote.savingError }}</div>
+                    <div ng-show="displayNote.savingError"><b>{{ displayNote && displayNote.savingError && 'Warning: ' }}</b>{{ displayNote && displayNote.savingError }}</div>
                     <div ng-show="displayNote.successMessage">{{ displayNote && displayNote.successMessage }}</div>
                 </div>
             </form>

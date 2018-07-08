@@ -33,8 +33,6 @@ io.on('connection', (socket) => {
     io.emit('fetch current online list', connections);
   };
 
-  // Initial online list fetching
-  socket.emit('fetch current online list', connections);
   socket.on('user enter name', (data, callback) => {
     if (data) {
       const tempData = {
