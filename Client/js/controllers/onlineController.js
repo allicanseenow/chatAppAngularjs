@@ -31,6 +31,11 @@ onlineControllerModule.controller('onlineController', ['$scope', '$rootScope', '
    */
   onlineService.clearMessage();
 
+  /**
+   * Set up notification services
+   */
+  onlineService.setUpNotification(socket, $scope.sessionId);
+
   $scope.saveUsername = (username) => {
     onlineService.saveUsername(username);
     updateOnlineList();

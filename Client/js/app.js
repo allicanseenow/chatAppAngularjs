@@ -20,11 +20,13 @@ app.config(function($routeProvider) {
 
 /**
  * Request browser permission to invoke notifications
+ *
+ * NOTE: self-invoking function makes it easy to understand its purpose via reading its name
  */
 (function requestDesktopNotificationPermission(){
   if(Notification && Notification.permission === 'default' || Notification.permission === 'denied') {
     Notification.requestPermission(function (permission) {
-      if(!('permission' in Notification)) {
+      if (Notification.permission !== permission) {
         Notification.permission = permission;
       }
     });

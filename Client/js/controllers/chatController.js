@@ -5,8 +5,10 @@ chatControllerModule
     $scope.sessionId = '';
     $scope.otherPersonName = '';
     $scope.message = {
-      currentText: chatService.newMessage.currentText,
-      allMessages: chatService.newMessage.allMessages,
+      // currentText: chatService.newMessage.currentText,
+      // allMessages: chatService.newMessage.allMessages,
+      currentText: '',
+      allMessages: [],
       otherPersonIsTyping: false,
     };
     const { username, receiverId } = $routeParams;
@@ -43,7 +45,12 @@ chatControllerModule
         });
     };
 
+    /**
+     * Call an API to get the username that is created by receiverID session
+     */
     getReceiverNameViaID();
+
+    chatService.resetMessage();
 
     /**
      * Send a message to a receiverId
@@ -104,6 +111,6 @@ chatControllerModule
       }
     });
 
-    chatService.setUpSocketTransmission(socket);
+    chatService.setUpSocketTransmission(socket, receiverId);
 
   }]);

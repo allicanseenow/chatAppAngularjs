@@ -33,6 +33,10 @@ io.on('connection', (socket) => {
     io.emit('fetch current online list', connections);
   };
 
+  const broadcastUserHasLeft = ({ username, sessionId }) => {
+    io.emit('USER HAS LEFT', { leavingUser: { username, sessionId }});
+  };
+
   socket.on('user enter name', (data, callback) => {
     if (data) {
       const tempData = {
@@ -98,7 +102,11 @@ io.on('connection', (socket) => {
   // If a person disconnects, remove this from online list
   socket.on('disconnect', function() {
     const index = connections.indexOf(userData);
-    if (index !== -1) connections.splice(index, 1);
+    if (index !== -1) {
+      const { username, sessionId } = connections[index];
+      connections.splice(index, 1);
+      broadcastUserHasLeft({ username, sessionId });
+    }
     // If someone is longer online, broadcast this to other people
     broadcastOnlineList();
     console.log('Disconnected: %s user online', connections.length);
@@ -163,7 +171,7 @@ app.post('/send-message', (req, res) => {
 app.post('/signify-is-typing', (req, res) => {
   const { io, body } = req;
   const { isTyping, receiverId, senderName, senderId } = body;
-  io.to(receiverId).emit('IS TYPING', { isTyping });
+  io.to(receiverId).emit('IS TYPING', { isTyping, typingPersonName: senderName, typingPersonId: senderId });
   return res.status(200).send({});
 });
 
