@@ -29,7 +29,7 @@ onlineControllerModule.factory('onlineService', function($http) {
       }
       else {
         onlineService.myUsername = myUsername;
-        onlineService.successMessage = response.successMessage;
+        onlineService.successMessage = response && response.successMessage || '';
         onlineService.savingError = null;
       }
     });
@@ -55,6 +55,7 @@ onlineControllerModule.controller('onlineController', ['$scope', '$rootScope', '
   updateUsernameSaving();
 
   const updateOnlineList = () => {
+    console.log('run this ')
     onlineService.getOnlineUsernames().then((data) => {
       $scope.onlineNameList = data;
     });
@@ -70,12 +71,6 @@ onlineControllerModule.controller('onlineController', ['$scope', '$rootScope', '
     // $scope.saveSuccess = true;
   };
 
-  $scope.$watchGroup([ onlineService.successMessage, onlineService.savingError ], (newVal) => {
-    $scope.displayNote = {
-      successMessage: newVal && newVal[0],
-      savingError: newVal && newVal[1],
-    }
-  });
 
   $scope.$watchGroup([
     function() {
@@ -86,8 +81,8 @@ onlineControllerModule.controller('onlineController', ['$scope', '$rootScope', '
     }
   ], function(newValues) {
     $scope.displayNote = {
-      successMessage: newValues[0],
-      savingError: newValues[1],
+      successMessage: newValues && newValues[0],
+      savingError: newValues && newValues[1],
     }
   });
 

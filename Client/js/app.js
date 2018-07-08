@@ -17,3 +17,16 @@ app.config(function($routeProvider) {
       redirectTo: '/',
     });
 });
+
+/**
+ * Request browser permission to invoke notifications
+ */
+(function requestDesktopNotificationPermission(){
+  if(Notification && Notification.permission === 'default' || Notification.permission === 'denied') {
+    Notification.requestPermission(function (permission) {
+      if(!('permission' in Notification)) {
+        Notification.permission = permission;
+      }
+    });
+  }
+})();
