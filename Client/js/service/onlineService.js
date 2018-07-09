@@ -76,7 +76,7 @@ onlineControllerModule.factory('onlineService', ['$http', '$location', '$rootSco
               event.preventDefault();
               notification.close();
               $rootScope.$apply(function() {
-                $location.url(`/chat/${senderName}?receiverId=${senderId}s=200`);
+                $location.url(`/chat/${senderName}?receiverId=${senderId}&s=200`);
               });
             };
           }

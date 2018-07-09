@@ -17,16 +17,23 @@ onlineControllerModule.controller('onlineController', ['$scope', '$rootScope', '
 
   updateUsernameSaving();
 
-  const updateOnlineList = () => {
+  const updateOnlineList = (callback) => {
     onlineService.getOnlineUsernames().then((data) => {
       $scope.onlineNameList = data;
+      if (callback) callback(data && data.length || 0);
     });
   };
 
   /**
    * Initial fetch of current online list after loading the page
+   * Temporarily set the username to a preset name
+   * However, user still needs to save it to be able to create a connection
    */
-  updateOnlineList();
+  updateOnlineList((numberOfOnlineConnection) => {
+    if (!$rootScope.myUsername) {
+      $scope.myUsername = `Guest - ${+numberOfOnlineConnection + 1} - ${socket.id.substr(0, 5)}`;
+    }
+  });
 
   /**
    * Clear message and warning after loading the page
